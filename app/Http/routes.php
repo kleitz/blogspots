@@ -10,6 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+require(__DIR__.'/Routes/SocialLoginRoute.php');
+require(__DIR__.'/Routes/UserRoute.php');
 
 Route::get('/', function () {
     return view('welcome');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Hash;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -28,7 +29,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['displayName', 'email', 'password', 'firstName', 'lastName', 'photo', 'gender', 'source'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +37,30 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+/*
+    public function role()
+    {
+        return $this->hasMany('App\Models\Role');
+
+    }
+    */
+
+    public function setPasswordAttribute($pass){
+        $this->attributes['password'] = Hash::make($pass);
+    }
+    
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
 }
